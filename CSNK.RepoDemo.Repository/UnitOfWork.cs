@@ -11,18 +11,19 @@ namespace CSNK.RepoDemo.Repository
     {
         private readonly BlogsDBContext _context;
 
-        public UnitOfWork(BlogsDBContext context, 
-                            IBlogRepository blog,
-                            IPostRepository post)
+        public UnitOfWork(BlogsDBContext context)
         {
             _context = context;
-
-            Blog = blog;
-            Post = post;
+                        
         }
 
-        public IBlogRepository Blog { get; }
-        public IPostRepository Post { get; }
+        private IBlogRepository _blog;
+        public IBlogRepository Blog => _blog ?? (_blog = new BlogRepository(_context));
+        
+
+        private IPostRepository _post;
+        public IPostRepository Post => _post ?? (_post = new PostRepository(_context));
+
 
         public int SaveChanges()
         {

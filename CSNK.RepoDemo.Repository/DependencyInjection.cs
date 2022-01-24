@@ -11,7 +11,7 @@ namespace CSNK.RepoDemo.Repository
         {
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<IBlogRepository, BlogRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<BlogsDBContext>(opt => opt
                 .UseSqlite($"Data Source={dbFile}"));
